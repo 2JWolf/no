@@ -1,0 +1,56 @@
+import random
+ 
+questions = ["hi", "hi"]
+answersa = ["hi", "hi"]
+answersb = ["hi", "hi"]
+score = 0
+streak = 0
+
+def blank(n):
+    a = 0
+    while a <= n-1:
+        print("")
+        a = a + 1
+        
+def wait():
+    next = input('Press enter to continue:')
+   
+# Shuffle two lists with same order
+# Using zip() + * operator + shuffle()
+temp = list(zip(questions, answersa, answersb))
+random.shuffle(temp)
+shufquestions, shufanswersa, shufanswersb = zip(*temp)
+
+name = str(input("What is your name?"))
+print(f"""Welcome {name} to my quiz! Some information before you begin:
+1. There are 20 questions (10 software-related & 10 random)
+2. The questions will be in a random order each time
+3. Spelling is important
+4. For each correct answer you will be given one point
+5. Every time you get three questions in a row correct you will be awarded one bonus point
+6. Enjoy!""")
+wait()
+blank(1)
+# Printing result
+for i in range(len(shufquestions)):
+    tempanswer = str(input(f'''Question {i+1} is: 
+{shufquestions[i]}'''))
+    if tempanswer == shufanswersa[i] or tempanswer == shufanswersb[i]:
+        print(f"You are correct! One point awarded. Current Streak is: {streak}")
+        score = score + 1
+        streak = streak + 1
+    else:
+        print("Wrong Answer.")
+        streak = 0
+    if streak == 3:
+        print(f"Congragulations {name} on getting three in a row correct! Bonus point awarded.")
+        score = score + 1
+        streak = 0
+    print(f'Your score is: {score}')
+    wait()
+    blank(70)
+    i += 2
+
+print(f"Congragulations {name} on finishing the quiz!")
+print(f'Your final score was {score}.')
+   
